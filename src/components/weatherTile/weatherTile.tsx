@@ -51,7 +51,7 @@ export function WeatherTileDetailItem({ children, icon, className }: PropsWithCh
 export function WeatherTileCurrentDetailItem({ children, icon }: PropsWithChildren<{
     icon: string,
 }> ) {
-    return <WeatherTileDetailItem icon={icon} className="weather-tile__current-details__item">
+    return <WeatherTileDetailItem icon={icon} className="weather-tile__current__details__item">
         { children }
     </WeatherTileDetailItem>;
 }
@@ -195,14 +195,16 @@ export function WeatherTileHourly({ forecastData, forecast, expandedHour, setExp
     </section>;
 }
 
-export function WeatherTileForecast({ forecastData, setForecast }: {
+export function WeatherTileForecast({ forecastData, setForecast, expandedForecast }: {
     forecastData: Forecasts,
-    setForecast: Dispatch<SetStateAction<Forecast | null>>
+    setForecast: Dispatch<SetStateAction<Forecast | null>>,
+    expandedForecast: Forecast | null,
 }) {
     return <section className="weather-tile__forecast">
         {
             forecastData.forecastday.map((forecast) => {
-                return <button onClick={() => setForecast(forecast)} key={forecast.date} className="weather-tile__forecast__day">
+                const isExpanded = expandedForecast?.date === forecast.date;
+                return <button onClick={() => setForecast(forecast)} key={forecast.date} className={ `weather-tile__forecast__day ${isExpanded ? 'weather-tile__forecast__day_expanded' : ''}` }>
                     <WeatherTileImage className="weather-tile__forecast__day__image" code={ forecast.day.condition.code }/>
                     <div className="weather-tile__forecast__day__text">
                         {
@@ -243,7 +245,7 @@ export function WeatherTileCurrent({ currentData, locationData }: {
         <div className="h2 weather-tile__current__temp">
             <strong>{ Math.round(currentData.temp_c) }°C</strong>
         </div>
-        <div className="weather-tile__current-details">
+        <div className="weather-tile__current__details">
             <WeatherTileCurrentDetailItem icon="air">
                 { currentData.wind_kph } kph, { currentData.wind_dir }
             </WeatherTileCurrentDetailItem>
@@ -282,7 +284,7 @@ export function WeatherTileFuture({ forecastDay, locationData }: {
         <div className="h2 weather-tile__current__temp">
             <strong>{ Math.round(forecastDay.maxtemp_c) }°C</strong> / { Math.round(forecastDay.mintemp_c) }°C
         </div>
-        <div className="weather-tile__current-details">
+        <div className="weather-tile__current__details">
             <WeatherTileCurrentDetailItem icon="air">
                 { forecastDay.maxwind_kph } kph
             </WeatherTileCurrentDetailItem>
@@ -314,7 +316,7 @@ export function WeatherTile({ locationData, currentData, forecastData }: {
 
     return <div className="weather-tile">
         { main }
-        <WeatherTileForecast forecastData={ forecastData } setForecast={setForecast}/>
+        <WeatherTileForecast forecastData={ forecastData } setForecast={setForecast} expandedForecast={forecast}/>
         <WeatherTileHourly
             forecastData={ forecastData }
             forecast={forecast}
