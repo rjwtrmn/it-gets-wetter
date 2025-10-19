@@ -1,29 +1,62 @@
 .weather-tile {
+  --padding: 15px;
   position: relative;
 
+  @media screen and (width >= 980px) {
+    --padding: 20px;
+  }
+
+  @media screen and (width >= 1280px) {
+    --padding: 40px;
+  }
+
   &__icon {
+    font-size: var(--font-size-xl);
+    line-height: var(--line-height-heading);
     vertical-align: bottom;
   }
 
+  &__image {
+    display: block;
+    height: 100%;
+    inset: 0;
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+  }
+
   &__current {
-    background: linear-gradient(0deg, transparent 40%, var(--color-text) 100%);
+    background: linear-gradient(0deg, transparent 30%, rgba(var(--dark-grey-rgb), .8) 70%, var(--dark-grey) 100%);
     color: white;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    min-height: 300px;
+    min-height: 250px;
     overflow: clip;
-    padding: 20px;
+    padding: var(--padding);
     position: relative;
 
     @media screen and (width >= 640px) {
-      background: linear-gradient(0deg, transparent 33%, var(--color-text) 100%);
+      background: linear-gradient(0deg, transparent 30%, rgba(var(--dark-grey-rgb), .6) 70%, var(--dark-grey) 100%);
       flex-direction: row;
       justify-content: space-between;
+      min-height: 300px;
+    }
+
+    @media screen and (width >= 980px) {
+      min-height: 350px;
     }
 
     &__location {
+      align-items: baseline;
+      display: inline-flex;
+      column-gap: 15px;
       margin-block-end: 5px;
+      flex-wrap: wrap;
     }
 
     &__text {
@@ -31,22 +64,11 @@
     }
 
     &__icon {
-      font-size: var(--font-size-xl);
-      line-height: var(--line-height-heading);
       margin-inline-start: 10px;
     }
 
-    &__image {
-      display: block;
-      height: 100%;
-      inset: 0;
-      max-height: 100%;
-      max-width: 100%;
-      object-fit: cover;
-      object-position: center;
-      position: absolute;
-      width: 100%;
-      z-index: -1;
+    &__temp {
+      margin-block-end: 20px;
     }
   }
 
@@ -71,14 +93,22 @@
   }
 
   &__hourly {
-    padding: 20px;
+    padding: var(--padding);
+
+    &__title {
+      align-items: baseline;
+      column-gap: 15px;
+      display: inline-flex;
+    }
 
     &__hours {
       display: flex;
       gap: 10px;
+      margin-block-start: 15px;
       max-width: 100%;
       overflow-x: auto;
-      margin-block-start: 15px;
+      padding-block-end: 10px;
+      scrollbar-width: thin;
     }
 
     &__details {
@@ -159,5 +189,68 @@
     &__prefix {
         opacity: 0.6;
       }
+  }
+
+  &__forecast {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: var(--padding);
+    gap: 5px;
+
+    @media screen and (width >= 980px) {
+      flex-direction: row;
+      gap: 10px;
+      margin-block-start: 10px;
+      padding: 0;
+      margin-inline: calc(-1 * var(--padding));
+    }
+
+    &__day {
+      align-items: center;
+      border-radius: 5px;
+      background: rgba(var(--dark-grey-rgb), .4);
+      color: white;
+      display: inline-flex;
+      flex-grow: 1;
+      flex-basis: 0;
+      justify-content: space-between;
+      overflow: clip;
+      min-height: 55px;
+      padding: 10px;
+      position: relative;
+      text-align: start;
+      gap: 5px;
+
+      &__text__temp {
+        font-size: 12px;
+      }
+
+      @media screen and (width >= 980px) {
+        align-items: start;
+        border-radius: 10px;
+        flex-direction: column;
+        justify-content: start;
+        max-height: unset;
+
+        &:first-child {
+          border-top-left-radius: 0;
+          border-bottom-left-radius: 0;
+          margin-inline-start: var(--padding);
+          padding-inline-start: var(--padding);
+        }
+
+        &:last-child {
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+          margin-inline-end: var(--padding);
+          padding-inline-end: var(--padding);
+        }
+      }
+
+      &__image {
+        filter: blur(10px);
+      }
+    }
   }
 }
