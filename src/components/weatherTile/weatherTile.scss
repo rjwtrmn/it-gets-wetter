@@ -31,7 +31,7 @@
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    min-height: 250px;
+    min-height: 400px;
     overflow: clip;
     padding: var(--padding);
     position: relative;
@@ -75,7 +75,6 @@
     @media screen and (width >= 640px) {
       grid-template-columns: 1fr min-content;
       grid-template-rows: min-content min-content 1fr min-content;
-      min-height: 450px;
       gap: 15px;
 
       &__title {
@@ -110,8 +109,8 @@
       margin-block-start: 15px;
       max-width: 100%;
       overflow-x: auto;
-      padding-block-end: 10px;
       scrollbar-width: thin;
+      padding: 2px;
     }
 
     &__details {
@@ -177,6 +176,7 @@
         gap: 2px;
       }
 
+      &:focus-visible,
       &:hover {
         background-color: var(--mid-light-grey);
       }
@@ -223,6 +223,8 @@
       position: relative;
       text-align: start;
 
+      &:focus-visible,
+      &:hover,
       &_expanded {
         background: rgba(white, .8);
         color: var(--color-text);
