@@ -51,7 +51,7 @@ export function WeatherTileDetailItem({ children, icon, className }: PropsWithCh
 export function WeatherTileCurrentDetailItem({ children, icon }: PropsWithChildren<{
     icon: string,
 }> ) {
-    return <WeatherTileDetailItem icon={icon} className="weather-tile__current__details__item">
+    return <WeatherTileDetailItem icon={icon} className="weather-tile__main__details__item">
         { children }
     </WeatherTileDetailItem>;
 }
@@ -228,25 +228,25 @@ export function WeatherTileCurrent({ currentData, locationData, children }: Prop
     currentData: Current,
     locationData: Location,
 }>) {
-    return <section className="weather-tile__current">
-        <WeatherTileImage className="weather-tile__current__image" code={currentData.condition.code}/>
-        <div className="weather-tile__current__top">
-            <div className="weather-tile__current__start">
-                <h1 className="weather-tile__current__location">
+    return <section className="weather-tile__main">
+        <WeatherTileImage className="weather-tile__main__image" code={currentData.condition.code}/>
+        <div className="weather-tile__main__top">
+            <div className="weather-tile__main__start">
+                <h1 className="weather-tile__main__location">
                     { locationData.name }
                     <span className="h2">{ locationData.region }</span>
                 </h1>
-                <h2 className="weather-tile__current__text">
+                <h2 className="weather-tile__main__text">
                     { currentData.condition.text }
-                    <WeatherTileIcon className="weather-tile__current__icon" code={ currentData.condition.code }/>
+                    <WeatherTileIcon className="weather-tile__main__icon" code={ currentData.condition.code }/>
                 </h2>
             </div>
-            <div className="h2 weather-tile__current__temp">
+            <div className="h2 weather-tile__main__temp">
                 <strong>{ Math.round(currentData.temp_c) }°C</strong>
             </div>
         </div>
-        <div className="weather-tile__current__bottom">
-            <div className="weather-tile__current__details">
+        <div className="weather-tile__main__bottom">
+            <div className="weather-tile__main__details">
                 <WeatherTileCurrentDetailItem icon="air">
                     { currentData.wind_kph } kph, { currentData.wind_dir }
                 </WeatherTileCurrentDetailItem>
@@ -272,25 +272,25 @@ export function WeatherTileFuture({ forecastDay, locationData, children }: Props
     forecastDay: ForecastDay,
     locationData: Location,
 }>) {
-    return <section className="weather-tile__current">
-        <WeatherTileImage className="weather-tile__current__image" code={forecastDay.condition.code}/>
-        <div className="weather-tile__current__top">
+    return <section className="weather-tile__main">
+        <WeatherTileImage className="weather-tile__main__image" code={forecastDay.condition.code}/>
+        <div className="weather-tile__main__top">
             <div>
-                <h1 className="weather-tile__current__location">
+                <h1 className="weather-tile__main__location">
                     { locationData.name }
                     <span className="h2">{ locationData.region }</span>
                 </h1>
-                <h2 className="weather-tile__current__text">
+                <h2 className="weather-tile__main__text">
                     { forecastDay.condition.text }
-                    <WeatherTileIcon className="weather-tile__current__icon" code={ forecastDay.condition.code }/>
+                    <WeatherTileIcon className="weather-tile__main__icon" code={ forecastDay.condition.code }/>
                 </h2>
             </div>
-            <div className="h2 weather-tile__current__temp">
+            <div className="h2 weather-tile__main__temp">
                 <strong>{ Math.round(forecastDay.maxtemp_c) }°C</strong> / { Math.round(forecastDay.mintemp_c) }°C
             </div>
         </div>
-        <div className="weather-tile__current__bottom">
-            <div className="weather-tile__current__details">
+        <div className="weather-tile__main__bottom">
+            <div className="weather-tile__main__details">
                 <WeatherTileCurrentDetailItem icon="air">
                     { forecastDay.maxwind_kph } kph
                 </WeatherTileCurrentDetailItem>
