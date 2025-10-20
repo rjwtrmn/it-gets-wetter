@@ -230,41 +230,23 @@ export function WeatherTileCurrent({ currentData, locationData, children }: Prop
 }>) {
     return <section className="weather-tile__main">
         <WeatherTileImage className="weather-tile__main__image" code={currentData.condition.code}/>
-        <div className="weather-tile__main__top">
-            <div className="weather-tile__main__start">
-                <h1 className="weather-tile__main__location">
-                    { locationData.name }
-                    <span className="h2">{ locationData.region }</span>
-                </h1>
-                <h2 className="weather-tile__main__text">
-                    { currentData.condition.text }
-                    <WeatherTileIcon className="weather-tile__main__icon" code={ currentData.condition.code }/>
-                </h2>
-            </div>
-            <div className="h2 weather-tile__main__temp">
-                <strong>{ Math.round(currentData.temp_c) }°C</strong>
-            </div>
+        <div className="weather-tile__main__title">
+            <h1 className="weather-tile__main__location">{ locationData.name }</h1>
+            <span className="h2 weather-tile__main__region">{ locationData.region }</span>
         </div>
-        <div className="weather-tile__main__bottom">
-            <div className="weather-tile__main__details">
-                <WeatherTileCurrentDetailItem icon="air">
-                    { currentData.wind_kph } kph, { currentData.wind_dir }
-                </WeatherTileCurrentDetailItem>
-                <WeatherTileCurrentDetailItem icon="water_drop">
-                    { currentData.humidity } %
-                </WeatherTileCurrentDetailItem>
-                <WeatherTileCurrentDetailItem icon="thermometer">
-                    Feels like { currentData.feelslike_c } °C
-                </WeatherTileCurrentDetailItem>
-                <WeatherTileCurrentDetailItem icon="blood_pressure">
-                    { currentData.pressure_mb } mb
-                </WeatherTileCurrentDetailItem>
-                <WeatherTileCurrentDetailItem icon="sunny">
-                    { currentData.uv }
-                </WeatherTileCurrentDetailItem>
-            </div>
-            { children }
+        <div className="weather-tile__main__subtitle">
+            <h2 className="weather-tile__main__text">{ currentData.condition.text }</h2>
+            <WeatherTileIcon className="weather-tile__main__icon" code={ currentData.condition.code }/>
         </div>
+        <div className="h2 weather-tile__main__temp"><strong>{ Math.round(currentData.temp_c) }°C</strong></div>
+        <div className="weather-tile__main__details">
+            <WeatherTileCurrentDetailItem icon="air">{ currentData.wind_kph } kph, { currentData.wind_dir }</WeatherTileCurrentDetailItem>
+            <WeatherTileCurrentDetailItem icon="water_drop">{ currentData.humidity } %</WeatherTileCurrentDetailItem>
+            <WeatherTileCurrentDetailItem icon="thermometer">Feels like { currentData.feelslike_c } °C</WeatherTileCurrentDetailItem>
+            <WeatherTileCurrentDetailItem icon="blood_pressure">{ currentData.pressure_mb } mb</WeatherTileCurrentDetailItem>
+            <WeatherTileCurrentDetailItem icon="sunny">{ currentData.uv }</WeatherTileCurrentDetailItem>
+        </div>
+        { children }
     </section>
 }
 
@@ -274,35 +256,23 @@ export function WeatherTileFuture({ forecastDay, locationData, children }: Props
 }>) {
     return <section className="weather-tile__main">
         <WeatherTileImage className="weather-tile__main__image" code={forecastDay.condition.code}/>
-        <div className="weather-tile__main__top">
-            <div>
-                <h1 className="weather-tile__main__location">
-                    { locationData.name }
-                    <span className="h2">{ locationData.region }</span>
-                </h1>
-                <h2 className="weather-tile__main__text">
-                    { forecastDay.condition.text }
-                    <WeatherTileIcon className="weather-tile__main__icon" code={ forecastDay.condition.code }/>
-                </h2>
-            </div>
-            <div className="h2 weather-tile__main__temp">
-                <strong>{ Math.round(forecastDay.maxtemp_c) }°C</strong> / { Math.round(forecastDay.mintemp_c) }°C
-            </div>
+        <div className="weather-tile__main__title">
+            <h1 className="weather-tile__main__location">{ locationData.name }</h1>
+            <span className="h2 weather-tile__main__region">{ locationData.region }</span>
         </div>
-        <div className="weather-tile__main__bottom">
-            <div className="weather-tile__main__details">
-                <WeatherTileCurrentDetailItem icon="air">
-                    { forecastDay.maxwind_kph } kph
-                </WeatherTileCurrentDetailItem>
-                <WeatherTileCurrentDetailItem icon="water_drop">
-                    { forecastDay.avghumidity } %
-                </WeatherTileCurrentDetailItem>
-                <WeatherTileCurrentDetailItem icon="sunny">
-                    { forecastDay.uv }
-                </WeatherTileCurrentDetailItem>
-            </div>
-            { children }
+        <div className="weather-tile__main__subtitle">
+            <h2 className="weather-tile__main__text">{ forecastDay.condition.text }</h2>
+            <WeatherTileIcon className="weather-tile__main__icon" code={ forecastDay.condition.code }/>
         </div>
+        <div className="h2 weather-tile__main__temp">
+            <strong>{ Math.round(forecastDay.maxtemp_c) }°C</strong> / { Math.round(forecastDay.mintemp_c) }°C
+        </div>
+        <div className="weather-tile__main__details">
+            <WeatherTileCurrentDetailItem icon="air">{ forecastDay.maxwind_kph } kph</WeatherTileCurrentDetailItem>
+            <WeatherTileCurrentDetailItem icon="water_drop">{ forecastDay.avghumidity } %</WeatherTileCurrentDetailItem>
+            <WeatherTileCurrentDetailItem icon="sunny">{ forecastDay.uv }</WeatherTileCurrentDetailItem>
+        </div>
+        { children }
     </section>
 }
 
@@ -321,12 +291,8 @@ export function WeatherTile({ locationData, currentData, forecastData }: {
     const forecasts = <WeatherTileForecast forecastData={ forecastData } setForecast={setForecast} expandedForecast={forecast}/>;
 
     const main = forecast === null || isToday(new Date(forecast.date))
-        ? <WeatherTileCurrent currentData={ currentData } locationData={ locationData }>
-            { forecasts }
-          </WeatherTileCurrent>
-        : <WeatherTileFuture forecastDay={ forecast.day } locationData={ locationData }>
-            { forecasts }
-        </WeatherTileFuture>;
+        ? <WeatherTileCurrent currentData={ currentData } locationData={ locationData }>{ forecasts }</WeatherTileCurrent>
+        : <WeatherTileFuture forecastDay={ forecast.day } locationData={ locationData }>{ forecasts }</WeatherTileFuture>;
 
     return <div className="weather-tile">
         { main }
