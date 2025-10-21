@@ -21,14 +21,20 @@ export function WeatherTileImage({ className, code }: {
     code: number;
 }) {
     const image = weatherImageMapping[code] || weatherImageMapping.default;
-    return <img className={className + ' weather-tile__image'} src={image.src} alt={image.alt}/>;
+    const [ srcPath, extension ] = image.src.split('.');
+    const wideSrc = srcPath + '-wide.' + extension;
+    return <picture className={ className + ' weather-tile__image' }>
+        <source media="(width < 640px)" srcSet={image.src}/>
+        <source media="(width >= 640px)" srcSet={wideSrc}/>
+        <img src={ image.src } alt={ image.alt }/>
+    </picture>
 }
 
 export function MaterialSymbolsIcon({ className, icon }: {
     className: string;
     icon: string;
 }) {
-    return <span className={'material-symbols-outlined ' + className}>{ icon }</span>;
+    return <span className={ 'material-symbols-outlined ' + className }>{ icon }</span>;
 }
 
 export function WeatherTileIcon({ className, code }: {
@@ -142,8 +148,9 @@ const rgbColdest = { r: 162, g: 209, b: 232 };
 const rgbMid = { r: 248, g: 240, b: 162 };
 const rgbHottest = { r: 255, g: 205, b: 193 };
 
-function calcRGBForTemp(temp: number, floorTemp: number, ceilTemp: number, avgTemp: number) {
-    if (temp === avgTemp) {
+function calcRGBForTemp(temp: number, floorTemp: number, ceilTemp: number) {
+    const midTemp = (floorTemp + ceilTemp) / 2;
+    if (temp === midTemp) {
         return rgbMid;
     }
     if (temp >= ceilTemp) {
@@ -156,7 +163,7 @@ function calcRGBForTemp(temp: number, floorTemp: number, ceilTemp: number, avgTe
     let floorRGB: { r: number, g: number, b: number };
     let ceilRGB: { r: number, g: number, b: number };
 
-    if (temp >= avgTemp) {
+    if (temp >= midTemp) {
         floorRGB = rgbMid;
         ceilRGB = rgbHottest;
     } else {
@@ -212,7 +219,7 @@ export function WeatherTileHourly({ forecastData, forecast, expandedHour, setExp
         <div className="weather-tile__hourly__hours">
             {
                 futureHours.map((hour) => {
-                    const { r, g, b } = calcRGBForTemp(hour.temp_c, forecast.day.mintemp_c, forecast.day.maxtemp_c, forecast.day.avgtemp_c);
+                    const { r, g, b } = calcRGBForTemp(hour.temp_c, forecast.day.mintemp_c, forecast.day.maxtemp_c);
                     const colourVariable = { '--weather-tile-hour-temp-color': `rgb(${r},${g},${b}` };
                         return <button
                                 style={ colourVariable  as CSSProperties }
@@ -279,7 +286,6 @@ export function WeatherTileCurrent({ currentData, locationData, children }: Prop
     locationData: Location,
 }>) {
     return <section className="weather-tile__main">
-        <WeatherTileImage className="weather-tile__main__image" code={currentData.condition.code}/>
         <div className="weather-tile__main__title">
             <h1 className="weather-tile__main__location">{ locationData.name }</h1>
             <span className="h2 weather-tile__main__region">{ locationData.region }</span>
@@ -297,7 +303,11 @@ export function WeatherTileCurrent({ currentData, locationData, children }: Prop
             <WeatherTileCurrentDetailItem icon="sunny">{ currentData.uv }</WeatherTileCurrentDetailItem>
         </div>
         { children }
-    </section>
+        <figure className="weather-tile__main__image-wrapper">
+            <WeatherTileImage className="weather-tile__main__image" code={currentData.condition.code}/>
+            <figcaption className="weather-tile__main__credit">Image by { weatherImageMapping[currentData.condition.code].credit }</figcaption>
+        </figure>
+    </section>;
 }
 
 export function WeatherTileFuture({ forecastDay, locationData, children }: PropsWithChildren<{
@@ -305,7 +315,6 @@ export function WeatherTileFuture({ forecastDay, locationData, children }: Props
     locationData: Location,
 }>) {
     return <section className="weather-tile__main">
-        <WeatherTileImage className="weather-tile__main__image" code={forecastDay.condition.code}/>
         <div className="weather-tile__main__title">
             <h1 className="weather-tile__main__location">{ locationData.name }</h1>
             <span className="h2 weather-tile__main__region">{ locationData.region }</span>
@@ -323,7 +332,11 @@ export function WeatherTileFuture({ forecastDay, locationData, children }: Props
             <WeatherTileCurrentDetailItem icon="sunny">{ forecastDay.uv }</WeatherTileCurrentDetailItem>
         </div>
         { children }
-    </section>
+        <figure className="weather-tile__main__image-wrapper">
+            <WeatherTileImage className="weather-tile__main__image" code={forecastDay.condition.code}/>
+            <figcaption className="weather-tile__main__credit">Image by { weatherImageMapping[forecastDay.condition.code].credit }</figcaption>
+        </figure>
+    </section>;
 }
 
 export function WeatherTile({ locationData, currentData, forecastData }: {

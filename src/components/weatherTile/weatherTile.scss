@@ -15,24 +15,25 @@
   &__image {
     display: block;
     height: 100%;
-    inset: 0;
     max-height: 100%;
     max-width: 100%;
     object-fit: cover;
     object-position: center;
-    position: absolute;
     width: 100%;
-    z-index: -1;
+
+    & img {
+      height: 100%;
+      width: 100%;
+    }
   }
 
   &__main {
-    background: linear-gradient(0deg, transparent 40%, rgba(var(--dark-grey-rgb), .5) 70%, var(--dark-grey) 100%);
+    background: linear-gradient(0deg, transparent 40%, var(--dark-grey) 100%);
     color: white;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
     min-height: 400px;
-    overflow: clip;
     padding: var(--padding);
     position: relative;
     row-gap: 10px;
@@ -43,6 +44,8 @@
       display: flex;
       flex-wrap: wrap;
       grid-column: 1;
+      grid-row: 1;
+      text-shadow: 0 0 10px var(--dark-grey);
     }
 
     &__subtitle {
@@ -51,6 +54,27 @@
       flex-wrap: wrap;
       gap: 5px 10px;
       grid-column: 1;
+      grid-row: 2;
+      text-shadow: 0 0 5px var(--dark-grey);
+    }
+
+    &__image-wrapper {
+      inset: 0;
+      position: absolute;
+      z-index: -1;
+    }
+
+    &__temp {
+      text-shadow: 0 0 5px var(--dark-grey);
+    }
+
+    &__credit {
+      color: rgba(var(--dark-grey-rgb), .6);
+      font-size: 12px;
+      position: absolute;
+      text-align: end;
+      inset-block-end: -22px;
+      inset-inline-end: var(--padding);
     }
 
     &__details {
@@ -63,6 +87,7 @@
 
       &__item {
         background-color: rgba(var(--dark-grey-rgb), .8);
+        backdrop-filter: blur(5px);
         border-radius: 10px;
         padding: 5px 10px;
 
@@ -95,6 +120,7 @@
 
   &__hourly {
     padding: var(--padding);
+    padding-block-start: 40px;
 
     &__title {
       align-items: baseline;
@@ -109,8 +135,8 @@
       margin-block-start: 15px;
       max-width: 100%;
       overflow-x: auto;
-      scrollbar-width: thin;
       padding: 2px;
+      padding-block-end: 10px;
     }
 
     &__details {
@@ -210,7 +236,8 @@
 
     &__day {
       align-items: center;
-      background: rgba(var(--dark-grey-rgb), .5);
+      background: rgba(var(--dark-grey-rgb), .6);
+      backdrop-filter: blur(5px);
       border-radius: 5px;
       color: white;
       display: flex;
