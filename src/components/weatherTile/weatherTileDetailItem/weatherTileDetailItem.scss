@@ -1,0 +1,9 @@
+.weather-tile__detail-item {
+  align-items: center;
+  column-gap: 8px;
+  display: flex;
+
+  &__prefix {
+    opacity: 0.6;
+  }
+}
