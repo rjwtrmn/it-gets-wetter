@@ -144,7 +144,7 @@
 
     &__hour {
       align-items: start;
-      background: var(--light-grey);
+      background: var(--weather-tile-hour-temp-color);
       border-radius: 5px;
       display: flex;
       flex-basis: 100px;

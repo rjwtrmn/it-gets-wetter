@@ -5,6 +5,7 @@ import type { Forecast, ForecastDay, ForecastHour, Forecasts } from "../../model
 import { formatDate } from "date-fns/format";
 import { weatherImageMapping } from "./weatherImageMapping.ts";
 import {
+    type CSSProperties,
     type Dispatch,
     type PropsWithChildren,
     type SetStateAction,
@@ -137,6 +138,51 @@ export function WeatherTileHourlyDetails({ expandedHour, setExpandedHour }: {
         </div>;
 }
 
+const rgbColdest = { r: 162, g: 209, b: 232 };
+const rgbMid = { r: 248, g: 240, b: 162 };
+const rgbHottest = { r: 255, g: 205, b: 193 };
+
+function calcRGBForTemp(temp: number, floorTemp: number, ceilTemp: number, avgTemp: number) {
+    if (temp === avgTemp) {
+        return rgbMid;
+    }
+    if (temp >= ceilTemp) {
+        return rgbHottest;
+    }
+    if (temp <= floorTemp) {
+        return rgbColdest;
+    }
+
+    let floorRGB: { r: number, g: number, b: number };
+    let ceilRGB: { r: number, g: number, b: number };
+
+    if (temp >= avgTemp) {
+        floorRGB = rgbMid;
+        ceilRGB = rgbHottest;
+    } else {
+        floorRGB = rgbColdest;
+        ceilRGB = rgbMid;
+    }
+
+    const tempRange = Math.abs(ceilTemp - floorTemp);
+    const tempDifference = Math.abs(temp - floorTemp);
+    const ratio = tempDifference/tempRange;
+
+    const calcNewColourPart = (part1: number, part2: number, ratio: number) => {
+        const range = Math.abs(part1 - part2);
+        let diff = (range * ratio);
+        if (part1 > part2) {
+            diff = -diff;
+        }
+        return Math.round(part1 + diff);
+    };
+
+    const r = calcNewColourPart(floorRGB.r, ceilRGB.r, ratio);
+    const g = calcNewColourPart(floorRGB.g, ceilRGB.g, ratio);
+    const b = calcNewColourPart(floorRGB.b, ceilRGB.b, ratio);
+    return { r, g, b};
+}
+
 export function WeatherTileHourly({ forecastData, forecast, expandedHour, setExpandedHour }: {
     forecastData: Forecasts,
     forecast: Forecast,
@@ -165,28 +211,32 @@ export function WeatherTileHourly({ forecastData, forecast, expandedHour, setExp
         </div>
         <div className="weather-tile__hourly__hours">
             {
-                futureHours.map((hour) =>
-                    <button
-                        onClick={() => setExpandedHour(hour)}
-                        key={hour.time}
-                        className={ `weather-tile__hourly__hour ${(expandedHour?.time === hour.time) ? 'weather-tile__hourly__hour_expanded' : ''}` }
-                    >
-                        <span className="weather-tile__hourly__hour__time">
-                            <strong>{ formatDate(new Date(hour.time), 'HH') }</strong>
-                            <span>{ formatDate(new Date(hour.time), 'mm') }</span>
-                        </span>
-                        <WeatherTileIcon
-                            className="weather-tile__hourly__hour__condition weather-tile__hourly__hour__icon"
-                            code={ hour.condition.code }
-                        />
-                        <span className="weather-tile__hourly__hour__item weather-tile__hourly__hour__temp">
-                            { Math.round(hour.temp_c) }°C
-                        </span>
-                        <span className="weather-tile__hourly__hour__item">
-                            <MaterialSymbolsIcon className="weather-tile__hourly__hour__icon" icon="water_drop"/>
-                            { Math.round(hour.chance_of_rain) }%
-                        </span>
-                    </button>
+                futureHours.map((hour) => {
+                    const { r, g, b } = calcRGBForTemp(hour.temp_c, forecast.day.mintemp_c, forecast.day.maxtemp_c, forecast.day.avgtemp_c);
+                    const colourVariable = { '--weather-tile-hour-temp-color': `rgb(${r},${g},${b}` };
+                        return <button
+                                style={ colourVariable  as CSSProperties }
+                                onClick={ () => setExpandedHour(hour) }
+                                key={ hour.time }
+                                className={ `weather-tile__hourly__hour ${ (expandedHour?.time === hour.time) ? 'weather-tile__hourly__hour_expanded' : '' }` }
+                            >
+                            <span className="weather-tile__hourly__hour__time">
+                                <strong>{ formatDate(new Date(hour.time), 'HH') }</strong>
+                                <span>{ formatDate(new Date(hour.time), 'mm') }</span>
+                            </span>
+                                <WeatherTileIcon
+                                    className="weather-tile__hourly__hour__condition weather-tile__hourly__hour__icon"
+                                    code={ hour.condition.code }
+                                />
+                                <span className="weather-tile__hourly__hour__item weather-tile__hourly__hour__temp">
+                                { Math.round(hour.temp_c) }°C
+                            </span>
+                                <span className="weather-tile__hourly__hour__item">
+                                <MaterialSymbolsIcon className="weather-tile__hourly__hour__icon" icon="water_drop"/>
+                                    { Math.round(hour.chance_of_rain) }%
+                            </span>
+                        </button>;
+                    }
                 )
             }
         </div>
