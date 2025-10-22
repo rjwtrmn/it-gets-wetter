@@ -1,7 +1,7 @@
 import type { PropsWithChildren, ReactNode } from "react";
-import { WeatherTileDetailItem } from "../weatherTileDetailItem/weatherTileDetailItem.tsx";
 import type { Current } from "../../../models/current.ts";
 import type { Location } from "../../../models/location.ts";
+import { WeatherTileDetailItem } from "../weatherTileDetailItem/weatherTileDetailItem.tsx";
 import { WeatherTileMain } from "../weatherTileMain/weatherTileMain.tsx";
 
 export function WeatherTileCurrentDetailItem({ children, icon }: PropsWithChildren<{

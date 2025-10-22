@@ -1,5 +1,5 @@
-import { weatherImageMapping } from "../weatherImage/weatherImageMapping.ts";
 import { MaterialSymbolsIcon } from "../materialSymbolsIcon/materialSymbolsIcon.tsx";
+import { weatherImageMapping } from "../weatherImage/weatherImageMapping.ts";
 import './weatherIcon.scss';
 
 export function WeatherIcon({ className, code }: {

@@ -11,7 +11,8 @@ export function WeatherTileFuture({ forecastDay, locationData, forecasts, locati
     forecasts: ReactNode,
 }) {
 
-    const temp =  <><strong>{ Math.round(forecastDay.maxtemp_c) }°C</strong> / { Math.round(forecastDay.mintemp_c) }°C</>;
+    const temp = <>
+        <strong>{ Math.round(forecastDay.maxtemp_c) }°C</strong> / { Math.round(forecastDay.mintemp_c) }°C</>;
 
     const details = [
         <WeatherTileCurrentDetailItem icon="air">{ forecastDay.maxwind_kph } kph</WeatherTileCurrentDetailItem>,

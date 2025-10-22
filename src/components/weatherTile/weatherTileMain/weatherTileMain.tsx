@@ -1,9 +1,9 @@
 import type { ReactNode } from "react";
 import type { Location } from "../../../models/location.ts";
+import type { WeatherConditions } from "../../../models/weatherConditions.ts";
 import { WeatherIcon } from "../../weatherIcon/weatherIcon.tsx";
 import { WeatherImage } from "../../weatherImage/weatherImage.tsx";
 import { weatherImageMapping } from "../../weatherImage/weatherImageMapping.ts";
-import type { WeatherConditions } from "../../../models/weatherConditions.ts";
 
 export function WeatherTileMain({ condition, temp, locationData, locationInput, details, forecasts }: {
     condition: WeatherConditions,

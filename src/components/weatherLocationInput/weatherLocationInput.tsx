@@ -7,11 +7,11 @@ export function WeatherLocationInput({ setLocation, ...props }: {
     return <input
         className="weather-location-input"
         placeholder="Enter a town, city or postcode"
-        {...props}
-        onKeyUp={(event) => {
+        { ...props }
+        onKeyUp={ (event) => {
             if (event.key === "Enter") {
                 setLocation((event.target as HTMLInputElement).value)
             }
-        }}
+        } }
     />;
 }

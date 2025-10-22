@@ -1,7 +1,7 @@
-import type { Forecast, Forecasts } from "../../../models/forecasts.ts";
-import type { Dispatch, SetStateAction } from "react";
-import { isToday } from "date-fns/isToday";
 import { formatDate } from "date-fns/format";
+import { isToday } from "date-fns/isToday";
+import type { Dispatch, SetStateAction } from "react";
+import type { Forecast, Forecasts } from "../../../models/forecasts.ts";
 import { WeatherIcon } from "../../weatherIcon/weatherIcon.tsx";
 import './weatherTileForecast.scss';
 
@@ -32,7 +32,8 @@ export function WeatherTileForecast({ forecastData, setForecast, expandedForecas
                             { Math.round(forecast.day.maxtemp_c) }°C / { Math.round(forecast.day.mintemp_c) }°C
                         </div>
                     </div>
-                    <WeatherIcon className="weather-tile__icon weather-tile__forecast__day__icon" code={ forecast.day.condition.code }/>
+                    <WeatherIcon className="weather-tile__icon weather-tile__forecast__day__icon"
+                                 code={ forecast.day.condition.code }/>
                 </button>;
             })
         }

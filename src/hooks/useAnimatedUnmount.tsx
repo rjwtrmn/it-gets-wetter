@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export function useAnimatedUnmount(initVisible: boolean, className: string) {
-    const [visible, setVisible] = useState(initVisible);
+    const [ visible, setVisible ] = useState(initVisible);
     const animatedElementRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
@@ -14,7 +14,7 @@ export function useAnimatedUnmount(initVisible: boolean, className: string) {
             elementRef.classList.add(className);
             elementRef.addEventListener('animationend', handleAnimationEnd);
         }
-    }, [visible]);
+    }, [ visible ]);
 
     return {
         setVisible,

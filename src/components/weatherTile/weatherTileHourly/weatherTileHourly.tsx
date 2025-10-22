@@ -1,13 +1,13 @@
-import type { Forecast, ForecastHour, Forecasts } from "../../../models/forecasts.ts";
-import { type CSSProperties, type Dispatch, type SetStateAction } from "react";
-import { isToday } from "date-fns/isToday";
 import { formatDate } from "date-fns/format";
-import { WeatherIcon } from "../../weatherIcon/weatherIcon.tsx";
+import { isAfter } from "date-fns/isAfter";
+import { isToday } from "date-fns/isToday";
+import { type CSSProperties, type Dispatch, type SetStateAction } from "react";
+import type { Forecast, ForecastHour, Forecasts } from "../../../models/forecasts.ts";
+import type { Location } from "../../../models/location.ts";
 import { MaterialSymbolsIcon } from "../../materialSymbolsIcon/materialSymbolsIcon.tsx";
+import { WeatherIcon } from "../../weatherIcon/weatherIcon.tsx";
 import { WeatherTileHourlyDetails } from "./weatherTileHourlyDetails/weatherTileHourlyDetails.tsx";
 import './weatherTileHourly.scss';
-import { isAfter } from "date-fns/isAfter";
-import type { Location } from "../../../models/location.ts";
 
 const rgbColdest = { r: 162, g: 209, b: 232 };
 const rgbMid = { r: 248, g: 240, b: 162 };

@@ -1,10 +1,12 @@
-export const weatherImageMapping: {[key: (number | string)]: {
-    src: string,
-    alt: string,
-    icon: string,
-    credit: string,
-    link: string
-}} = {
+export const weatherImageMapping: {
+    [key: (number | string)]: {
+        src: string,
+        alt: string,
+        icon: string,
+        credit: string,
+        link: string
+    }
+} = {
     default: {
         src: 'src/assets/weather/1000-sun.jpg',
         alt: 'Seagull Soaring in a Clear Blue Sky',

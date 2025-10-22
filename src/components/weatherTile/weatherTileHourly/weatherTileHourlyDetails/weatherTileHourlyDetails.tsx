@@ -1,6 +1,6 @@
+import { formatDate } from "date-fns/format";
 import { type Dispatch, type SetStateAction, useEffect, useRef } from "react";
 import type { ForecastHour } from "../../../../models/forecasts.ts";
-import { formatDate } from "date-fns/format";
 import { MaterialSymbolsIcon } from "../../../materialSymbolsIcon/materialSymbolsIcon.tsx";
 import { WeatherTileHourDetailItem } from "../weatherTileHourDetailItem/weatherTileHourDetailItem.tsx";
 
