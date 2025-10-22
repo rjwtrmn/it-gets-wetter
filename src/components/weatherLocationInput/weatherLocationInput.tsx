@@ -1,7 +1,7 @@
 import type { Dispatch, SetStateAction } from "react";
 import './weatherLocationInput.scss';
 
-export function WeatherLocationInput(props: {
+export function WeatherLocationInput({ setLocation, ...props }: {
     setLocation: Dispatch<SetStateAction<string | null>>,
 }) {
     return <input
@@ -10,7 +10,7 @@ export function WeatherLocationInput(props: {
         {...props}
         onKeyUp={(event) => {
             if (event.key === "Enter") {
-                props.setLocation((event.target as HTMLInputElement).value)
+                setLocation((event.target as HTMLInputElement).value)
             }
         }}
     />;

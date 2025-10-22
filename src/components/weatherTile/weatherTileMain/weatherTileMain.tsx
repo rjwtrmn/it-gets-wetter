@@ -19,7 +19,7 @@ export function WeatherTileMain({ condition, temp, locationData, locationInput, 
         </div>
         <div className="weather-tile__main__title">
             <h1 className="weather-tile__main__location">{ locationData.name }</h1>
-            <span className="h2 weather-tile__main__region">{ locationData.region }</span>
+            <span className="h2 weather-tile__main__region">{ locationData.country }</span>
         </div>
         <div className="weather-tile__main__subtitle">
             <h2 className="weather-tile__main__text">{ condition.text }</h2>

@@ -18,9 +18,8 @@ export function WeatherTile({ locationData, currentData, forecastData, locationI
     const [ forecast, setForecast ] = useState<Forecast>(forecastData.forecastday[0]);
     const [ expandedHour, setExpandedHour ] = useState<ForecastHour | null>(null);
 
-    useEffect(() => {
-        setExpandedHour(null);
-    }, [forecast])
+    useEffect(() => setForecast(forecastData.forecastday[0]), [forecastData])
+    useEffect(() => setExpandedHour(null), [forecast])
 
     const forecasts = <WeatherTileForecast
         forecastData={ forecastData }

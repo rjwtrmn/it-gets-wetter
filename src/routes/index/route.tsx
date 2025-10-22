@@ -1,9 +1,12 @@
 import { QueryClient, queryOptions, useQuery } from "@tanstack/react-query";
 import { WeatherTile } from "../../components/weatherTile/weatherTile.tsx";
 import { createFileRoute } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useTransition } from "react";
 import { useGeolocation } from "../../hooks/useGeolocation.tsx";
 import { WeatherLocationInput } from "../../components/weatherLocationInput/weatherLocationInput.tsx";
+import type { Current } from "../../models/current.ts";
+import type { Forecasts } from "../../models/forecasts.ts";
+import type { Location } from "../../models/location.ts";
 
 const weatherApiKey = import.meta.env.VITE_WEATHER_API_KEY;
 const weatherApiPath = import.meta.env.VITE_WEATHER_API_PATH;
@@ -27,12 +30,12 @@ export const Route = createFileRoute('/')({
 export function Home() {
     const [ geolocation, isGeoPending ] = useGeolocation();
     const [ location, setLocation ] = useState<string | null>(null);
-
-    useEffect(() => {
-        if (!isGeoPending) {
-            setLocation(geolocation || defaultWeatherLocation);
-        }
-    }, [ isGeoPending, geolocation ]);
+    const [ weatherData, setWeatherData ] = useState<{
+        current: Current,
+        location: Location,
+        forecast: Forecasts
+    } | null>(null);
+    const [ _, startTransition ] = useTransition();
 
     const { data, isPending } = useQuery(queryOptions({
         queryKey: ['nextWeeklyWeather', location],
@@ -43,18 +46,32 @@ export function Home() {
         enabled: !!location
     }));
 
-    if (isPending) {
-        return <span>Loading...</span>;
-    }
+    useEffect(() => {
+        if (!isGeoPending && !location) {
+            setLocation(geolocation || defaultWeatherLocation);
+        }
+    }, [ isGeoPending, geolocation ]);
+
+    useEffect(() => {
+        if (data) {
+            startTransition(()=> {
+                setWeatherData(data);
+            });
+        }
+    }, [ data ]);
 
     const input = <WeatherLocationInput setLocation={setLocation}/>;
 
-    return <main>
+    if (!weatherData && isPending) {
+        return <span>Loading...</span>;
+    }
+
+    return weatherData && <main>
         <WeatherTile
-            currentData={data.current}
-            forecastData={data.forecast}
-            locationData={data.location}
+            currentData={weatherData.current}
+            forecastData={weatherData.forecast}
+            locationData={weatherData.location}
             locationInput={input}
         />
-    </main>
+    </main>;
 }
