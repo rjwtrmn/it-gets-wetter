@@ -1,12 +1,13 @@
 import type { Forecast, ForecastHour, Forecasts } from "../../../models/forecasts.ts";
 import { type CSSProperties, type Dispatch, type SetStateAction } from "react";
-import { isFuture } from "date-fns/isFuture";
 import { isToday } from "date-fns/isToday";
 import { formatDate } from "date-fns/format";
 import { WeatherIcon } from "../../weatherIcon/weatherIcon.tsx";
 import { MaterialSymbolsIcon } from "../../materialSymbolsIcon/materialSymbolsIcon.tsx";
 import { WeatherTileHourlyDetails } from "./weatherTileHourlyDetails/weatherTileHourlyDetails.tsx";
 import './weatherTileHourly.scss';
+import { isAfter } from "date-fns/isAfter";
+import type { Location } from "../../../models/location.ts";
 
 const rgbColdest = { r: 162, g: 209, b: 232 };
 const rgbMid = { r: 248, g: 240, b: 162 };
@@ -54,18 +55,19 @@ export function calcRGBForTemp(temp: number, floorTemp: number, ceilTemp: number
     return { r, g, b };
 }
 
-export function WeatherTileHourly({ forecastData, forecast, expandedHour, setExpandedHour }: {
+export function WeatherTileHourly({ forecastData, forecast, expandedHour, setExpandedHour, location }: {
     forecastData: Forecasts,
     forecast: Forecast,
     expandedHour: ForecastHour | null,
     setExpandedHour: Dispatch<SetStateAction<ForecastHour | null>>,
+    location: Location,
 }) {
     const currentDayHours = forecast.hour;
 
     const nextDayIndex = forecastData.forecastday.indexOf(forecast) + 1;
     const nextDayHours = forecastData.forecastday[nextDayIndex]?.hour || [];
 
-    const futureHours = currentDayHours.filter((hour) => isFuture(new Date(hour.time)));
+    const futureHours = currentDayHours.filter((hour) => isAfter(new Date(hour.time), new Date(location.localtime)));
     const futureNextDayHours = nextDayHours.slice(0, 6);
     futureHours.push(...futureNextDayHours);
 

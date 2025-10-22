@@ -3,11 +3,11 @@ import type { Location } from "../../models/location.ts";
 import type { Current } from "../../models/current.ts";
 import type { Forecast, ForecastHour, Forecasts } from "../../models/forecasts.ts";
 import { type ReactNode, useEffect, useState } from "react";
-import { isToday } from "date-fns/isToday";
 import { WeatherTileHourly } from "./weatherTileHourly/weatherTileHourly.tsx";
 import { WeatherTileForecast } from "./weatherTileForecast/weatherTileForecast.tsx";
 import { WeatherTileCurrent } from "./weatherTileCurrent/weatherTileCurrent.tsx";
 import { WeatherTileFuture } from "./weatherTileFuture/weatherTileFuture.tsx";
+import { isSameDay } from "date-fns/isSameDay";
 
 export function WeatherTile({ locationData, currentData, forecastData, locationInput }: {
     locationData: Location;
@@ -27,7 +27,7 @@ export function WeatherTile({ locationData, currentData, forecastData, locationI
         expandedForecast={forecast}
     />;
 
-    const main = forecast === null || isToday(new Date(forecast.date))
+    const main = forecast === null || isSameDay(new Date(locationData.localtime), new Date(forecast.date))
         ? <WeatherTileCurrent
             currentData={ currentData }
             locationData={ locationData }
@@ -48,6 +48,7 @@ export function WeatherTile({ locationData, currentData, forecastData, locationI
             forecast={forecast}
             expandedHour={ expandedHour }
             setExpandedHour={ setExpandedHour }
+            location={ locationData }
         />
     </div>;
 }
