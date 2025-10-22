@@ -7,6 +7,9 @@ import { WeatherLocationInput } from "../../components/weatherLocationInput/weat
 import type { Current } from "../../models/current.ts";
 import type { Forecasts } from "../../models/forecasts.ts";
 import type { Location } from "../../models/location.ts";
+import { Loader } from "../../components/loader/loader.tsx";
+import './home.scss';
+import { useAnimatedUnmount } from "../../hooks/useAnimatedUnmount.tsx";
 
 const weatherApiKey = import.meta.env.VITE_WEATHER_API_KEY;
 const weatherApiPath = import.meta.env.VITE_WEATHER_API_PATH;
@@ -26,6 +29,19 @@ export const Route = createFileRoute('/')({
     loader: () => queryClient.ensureQueryData(nextWeeklyWeatherQueryOptions),
     component: Home,
 });
+
+export function LoaderOverlay({ visible }: { visible: boolean }) {
+    const { setVisible, animatedElementRef } = useAnimatedUnmount(visible, 'fade-out');
+
+    useEffect(() => {
+        setVisible(visible);
+    }, [visible]);
+
+    return <div ref={animatedElementRef} className="loading-panel">
+        <span>Loading...</span>
+        <Loader/>
+    </div>;
+}
 
 export function Home() {
     const [ geolocation, isGeoPending ] = useGeolocation();
@@ -62,16 +78,13 @@ export function Home() {
 
     const input = <WeatherLocationInput setLocation={setLocation}/>;
 
-    if (!weatherData && isPending) {
-        return <span>Loading...</span>;
-    }
-
-    return weatherData && <main>
-        <WeatherTile
-            currentData={weatherData.current}
-            forecastData={weatherData.forecast}
-            locationData={weatherData.location}
-            locationInput={input}
-        />
-    </main>;
+    return <>
+        <LoaderOverlay visible={!weatherData &&  isPending}/>
+        { weatherData && <WeatherTile
+            currentData={ weatherData.current }
+            forecastData={ weatherData.forecast }
+            locationData={ weatherData.location }
+            locationInput={ input }
+        /> }
+    </>;
 }

@@ -1,0 +1,45 @@
+.loader {
+  animation: loader1 1s infinite linear;
+  background: var(--light-grey);
+  border-radius: 50%;
+  display: grid;
+  height: 31.4px;
+  transform-origin: top;
+  width: 31.4px;
+}
+
+.loader::before,
+.loader::after {
+  animation: inherit;
+  animation-name: loader2;
+  background: var(--mid-grey);
+  border-radius: 50%;
+  content: "";
+  grid-area: 1 / 1;
+  transform-origin: top;
+}
+
+.loader::after {
+  --s: 180deg;
+  background: var(--dark-grey);
+}
+
+@keyframes loader1 {
+  0%, 20% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes loader2 {
+  50% {
+    transform: rotate(var(--s,90deg));
+  }
+
+  100% {
+    transform: rotate(0);
+  }
+}
