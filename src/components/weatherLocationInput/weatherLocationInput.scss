@@ -1,8 +1,22 @@
 .weather-location-input {
-  background-color: rgba(white, .5);
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.weather-location-input__icon {
+  color: rgba(var(--dark-grey-rgb), .7);
+  margin-inline-start: 7px;
+  position: absolute;
+}
+
+.weather-location-input__input {
+  background-color: var(--mid-light-grey);
   border-radius: 100px;
   padding: 5px 20px;
+  padding-inline-start: 40px;
   width: 100%;
+  text-overflow: ellipsis;
 
   &::placeholder {
     color: rgba(var(--dark-grey-rgb), .7);

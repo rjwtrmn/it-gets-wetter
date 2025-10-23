@@ -1,11 +1,11 @@
 import { QueryClient, queryOptions, useQuery } from "@tanstack/react-query";
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState, useTransition } from "react";
-import { Loader } from "../../components/loader/loader.tsx";
 import './home.scss';
+import { DarkModeToggle } from "../../components/darkModeToggle/darkModeToggle.tsx";
+import { LoaderOverlay } from "../../components/loaderOverlay/loaderOverlay.tsx";
 import { WeatherLocationInput } from "../../components/weatherLocationInput/weatherLocationInput.tsx";
 import { WeatherTile } from "../../components/weatherTile/weatherTile.tsx";
-import { useAnimatedUnmount } from "../../hooks/useAnimatedUnmount.tsx";
 import { useGeolocation } from "../../hooks/useGeolocation.tsx";
 import type { Current } from "../../models/current.ts";
 import type { Forecasts } from "../../models/forecasts.ts";
@@ -29,19 +29,6 @@ export const Route = createFileRoute('/')({
     loader: () => queryClient.ensureQueryData(nextWeeklyWeatherQueryOptions),
     component: Home,
 });
-
-export function LoaderOverlay({ visible }: { visible: boolean }) {
-    const { setVisible, animatedElementRef } = useAnimatedUnmount(visible, 'fade-out');
-
-    useEffect(() => {
-        setVisible(visible);
-    }, [ visible ]);
-
-    return <div ref={ animatedElementRef } className="loading-panel">
-        <span>Loading...</span>
-        <Loader/>
-    </div>;
-}
 
 export function Home() {
     const [ geolocation, isGeoPending ] = useGeolocation();
@@ -78,13 +65,20 @@ export function Home() {
 
     const input = <WeatherLocationInput setLocation={ setLocation }/>;
 
-    return <>
+    return <div className="home">
         <LoaderOverlay visible={ !weatherData && isPending }/>
-        { weatherData && <WeatherTile
-            currentData={ weatherData.current }
-            forecastData={ weatherData.forecast }
-            locationData={ weatherData.location }
-            locationInput={ input }
-        /> }
-    </>;
+        { weatherData && <>
+            <header className="home__header">
+                <div className="home__header__location-input">
+                    { input }
+                </div>
+                <DarkModeToggle/>
+            </header>
+            <WeatherTile
+                currentData={ weatherData.current }
+                forecastData={ weatherData.forecast }
+                locationData={ weatherData.location }
+            />
+        </> }
+    </div>;
 }

@@ -4,10 +4,9 @@ import type { Location } from "../../../models/location.ts";
 import { WeatherTileCurrentDetailItem } from "../weatherTileCurrent/weatherTileCurrent.tsx";
 import { WeatherTileMain } from "../weatherTileMain/weatherTileMain.tsx";
 
-export function WeatherTileFuture({ forecastDay, locationData, forecasts, locationInput }: {
+export function WeatherTileFuture({ forecastDay, locationData, forecasts }: {
     forecastDay: ForecastDay,
     locationData: Location,
-    locationInput: ReactNode,
     forecasts: ReactNode,
 }) {
 
@@ -23,7 +22,6 @@ export function WeatherTileFuture({ forecastDay, locationData, forecasts, locati
     return <WeatherTileMain
         condition={ forecastDay.condition }
         locationData={ locationData }
-        locationInput={ locationInput }
         temp={ temp }
         details={ details }
         forecasts={ forecasts }

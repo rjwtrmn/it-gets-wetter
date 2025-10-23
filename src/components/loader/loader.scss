@@ -12,7 +12,7 @@
 .loader::after {
   animation: inherit;
   animation-name: loader2;
-  background: var(--mid-grey);
+  background: light-dark(var(--mid-grey), var(--mid-light-grey));
   border-radius: 50%;
   content: "";
   grid-area: 1 / 1;
@@ -21,7 +21,7 @@
 
 .loader::after {
   --s: 180deg;
-  background: var(--dark-grey);
+  background: light-dark(var(--dark-grey), var(--mid-grey));
 }
 
 @keyframes loader1 {

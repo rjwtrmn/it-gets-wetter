@@ -5,18 +5,14 @@ import { WeatherIcon } from "../../weatherIcon/weatherIcon.tsx";
 import { WeatherImage } from "../../weatherImage/weatherImage.tsx";
 import { weatherImageMapping } from "../../weatherImage/weatherImageMapping.ts";
 
-export function WeatherTileMain({ condition, temp, locationData, locationInput, details, forecasts }: {
+export function WeatherTileMain({ condition, temp, locationData, details, forecasts }: {
     condition: WeatherConditions,
     details: ReactNode[],
     forecasts: ReactNode,
     locationData: Location,
-    locationInput: ReactNode,
     temp: ReactNode,
 }) {
     return <section className="weather-tile__main">
-        <div className="weather-tile__main__input">
-            { locationInput }
-        </div>
         <div className="weather-tile__main__title">
             <h1 className="weather-tile__main__location">{ locationData.name }</h1>
             <span className="h2 weather-tile__main__region">{ locationData.country }</span>

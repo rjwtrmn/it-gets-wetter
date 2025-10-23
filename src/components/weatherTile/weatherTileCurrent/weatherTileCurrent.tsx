@@ -12,13 +12,11 @@ export function WeatherTileCurrentDetailItem({ children, icon }: PropsWithChildr
     </WeatherTileDetailItem>;
 }
 
-export function WeatherTileCurrent({ currentData, locationData, forecasts, locationInput }: {
+export function WeatherTileCurrent({ currentData, locationData, forecasts }: {
     currentData: Current,
     locationData: Location,
-    locationInput: ReactNode,
     forecasts: ReactNode,
 }) {
-
     const temp = <strong>{ Math.round(currentData.temp_c) }°C</strong>;
 
     const details = [
@@ -37,7 +35,6 @@ export function WeatherTileCurrent({ currentData, locationData, forecasts, locat
         details={ details }
         forecasts={ forecasts }
         locationData={ locationData }
-        locationInput={ locationInput }
         temp={ temp }
     />;
 }

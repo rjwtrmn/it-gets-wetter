@@ -31,3 +31,7 @@ if (!rootElement.innerHTML) {
         </StrictMode>,
     )
 }
+
+// TODO: Error states
+// Temp graphs wth d3
+// Location dropdown autopopulation

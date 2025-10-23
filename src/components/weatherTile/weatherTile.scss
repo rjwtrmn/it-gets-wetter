@@ -1,5 +1,5 @@
 .weather-tile {
-  --padding: 15px;
+  --padding: var(--padding-inline);
   position: relative;
 
   @media screen and (width >= 980px) {
@@ -7,19 +7,16 @@
   }
 
   &__main {
-    background: linear-gradient(0deg, transparent 40%, var(--dark-grey) 100%);
+    background: linear-gradient(0deg, transparent 20%, var(--dark-grey) 100%);
     color: white;
     display: grid;
     grid-template-columns: 1fr;
     grid-template-rows: auto;
-    min-height: 450px;
+    min-height: 500px;
     padding: var(--padding);
+    padding-block-start: 70px;
     position: relative;
     row-gap: 10px;
-
-    &__input {
-      grid-column: 1 / -1;
-    }
 
     &__title {
       align-items: baseline;
@@ -27,7 +24,6 @@
       display: flex;
       flex-wrap: wrap;
       grid-column: 1;
-      grid-row: 2;
       text-shadow: 0 0 10px var(--dark-grey);
     }
 
@@ -37,7 +33,6 @@
       flex-wrap: wrap;
       gap: 5px 10px;
       grid-column: 1;
-      grid-row: 3;
       text-shadow: 0 0 5px var(--dark-grey);
     }
 
@@ -52,7 +47,7 @@
     }
 
     &__credit {
-      color: rgba(var(--dark-grey-rgb), .6);
+      color: light-dark(var(--dark-grey), var(--light-grey));
       font-size: 12px;
       position: absolute;
       text-align: end;
@@ -95,7 +90,7 @@
 
       &__temp {
         grid-column: 2;
-        grid-row: 2;
+        grid-row: 1;
         text-wrap: nowrap;
       }
     }

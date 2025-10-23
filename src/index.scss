@@ -1,6 +1,7 @@
 @use "resets";
 
 :root {
+  color-scheme: light dark;
   font-family: 'Helvetica Neue', sans-serif;
   margin: 0;
   padding: 0;
@@ -18,20 +19,37 @@
   --dark-grey-rgb: 15, 15, 30;
   --mid-grey: #6f6f78;
   --mid-light-grey: #b7b7bb;
+  --mid-light-grey-rgb: 231, 231, 232;
   --light-grey: #e7e7e8;
+  --light-grey-rgb: 15, 15, 30;
 
-  --color-text: var(--dark-grey);
+  --dark-text: var(--dark-grey);
+  --light-text: var(--light-grey);
+  --light-background: white;
+  --dark-background: var(--dark-grey);
+
+  --padding-inline: 15px;
 
   @media screen and (width >= 640px) {
     --font-size-m: 28px;
     --font-size-l: 32px;
     --font-size-xl: 40px;
     --font-size-xxl: 56px;
+    --padding-inline: 20px;
   }
 }
 
+html.dark {
+  color-scheme: dark;
+}
+
+html.light {
+  color-scheme: light;
+}
+
 body {
-  color: var(--color-text);
+  background-color: light-dark(var(--light-background), var(--dark-background));
+  color: light-dark(var(--dark-text), var(--light-text));
   font-size: var(--font-size-regular);
   font-weight: 300;
   line-height: var(--line-height-body);
