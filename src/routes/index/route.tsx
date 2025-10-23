@@ -69,10 +69,15 @@ export function Home() {
         <LoaderOverlay visible={ !weatherData && isPending }/>
         { weatherData && <>
             <header className="home__header">
+                <div className="home__header__logo">
+                    It gets Wetter
+                </div>
                 <div className="home__header__location-input">
                     { input }
                 </div>
-                <DarkModeToggle/>
+                <div className="home__header__dark-mode-toggle">
+                    <DarkModeToggle />
+                </div>
             </header>
             <WeatherTile
                 currentData={ weatherData.current }

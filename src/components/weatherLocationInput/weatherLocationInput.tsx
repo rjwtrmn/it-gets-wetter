@@ -6,7 +6,6 @@ export function WeatherLocationInput({ setLocation, ...props }: {
     setLocation: Dispatch<SetStateAction<string | null>>,
 }) {
     return <div className="weather-location-input">
-        <MaterialSymbolsIcon className="weather-location-input__icon" icon={'globe'}/>
         <input
             className="weather-location-input__input"
             placeholder="Enter a town, city or postcode"
@@ -17,5 +16,6 @@ export function WeatherLocationInput({ setLocation, ...props }: {
                 }
             } }
         />
+        <MaterialSymbolsIcon className="weather-location-input__icon" icon="search"/>
     </div>;
 }
