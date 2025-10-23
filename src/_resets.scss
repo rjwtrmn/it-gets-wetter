@@ -31,6 +31,11 @@ input, button, textarea, select {
   background: none;
   border: none;
   font: inherit;
+
+  &:focus-visible {
+    box-shadow: 0 0 0 2px var(--dark-grey), 0 0 0 3px var(--light-grey);
+    outline: none;
+  }
 }
 
 p, h1, h2, h3, h4, h5, h6 {
