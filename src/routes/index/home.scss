@@ -4,8 +4,9 @@
 
 .home__header {
   align-items: start;
-  background: linear-gradient(0deg, transparent 2%, var(--dark-grey) 100%);
-  color: var(--light-text);
+  background: light-dark(rgba(white, .2), rgba(var(--dark-grey-rgb), .5));
+  backdrop-filter: blur(5px);
+  color: light-dark(var(--dark-text), var(--light-text));
   display: flex;
   gap: 25px;
   inset-block-start: 0;
@@ -33,11 +34,12 @@
   border-radius: 5px;
   color: var(--dark-text);
   display: none;
-  font-size: 22px;
+  font-size: 15px;
   font-weight: 100;
-  line-height: var(--line-height-heading);
+  line-height: 1;
   margin-inline-end: auto;
   padding: 5px 10px;
+  letter-spacing: 3px;
 
   @media screen and (width >= 640px) {
     display: block;

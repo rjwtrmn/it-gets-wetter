@@ -1,29 +1,36 @@
 .weather-location-input {
+  --background-color: var(--mid-light-grey);
+  --color: var(--dark-text);
+  --color-faded: rgba(var(--dark-grey-rgb), .7);
+  --font-size: 12px;
+
   align-items: center;
-  color: rgba(var(--dark-grey-rgb), .7);
   display: flex;
   gap: 7px;
   position: relative;
 }
 
 .weather-location-input__icon {
+  color: var(--color-faded);
   font-size: 16px;
   inset-inline-end: 7px;
   position: absolute;
 }
 
 .weather-location-input__input {
-  background-color: var(--mid-light-grey);
+  background-color: var(--background-color);
   border-radius: 15px;
+  box-shadow: 0 0 5px 1px rgba(var(--dark-grey-rgb), .5);
+  color: var(--color);
+  font-size: var(--font-size);
   height: 25px;
-  font-size: 13px;
   padding: 5px 15px 5px 15px;
   text-overflow: ellipsis;
   width: 100%;
 
   &::placeholder {
-    color: rgba(var(--dark-grey-rgb), .7);
-    font-size: 13px;
+    color: var(--color-faded);
+    font-size: var(--font-size);
   }
 
   &:has(~ .weather-location-input__list[aria-expanded="true"]) {
@@ -38,21 +45,35 @@
 }
 
 .weather-location-input__list {
-  background-color: var(--mid-light-grey);
+  background-color: var(--background-color);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
+  color: var(--color-faded);
   display: none;
   flex-direction: column;
-  font-size: 13px;
+  font-size: var(--font-size);
   gap: 5px;
   list-style: none;
   margin: 0;
-  padding: 15px;
+  padding-block: 10px 5px;
   position: absolute;
   top: 20px;
   width: 100%;
 
   &[aria-expanded="true"] {
     display: flex;
+  }
+
+  &__item {
+    cursor: pointer;
+    padding: 2px 15px;
+
+    &:hover {
+      background-color: rgba(var(--dark-grey-rgb), .2);
+    }
+
+    &[aria-selected="true"] {
+      background-color: rgba(var(--dark-grey-rgb), .2);
+    }
   }
 }

@@ -16,13 +16,8 @@
     opacity: 0;
     width: 0;
 
-    &:checked + .dark-model-toggle__switch__slider {
-      --background: var(--mid-grey);
-      --border: transparent 1px solid;
-    }
-
     &:focus-visible + .dark-model-toggle__switch__slider {
-      outline: blue;
+      box-shadow: 0 0 0 2px var(--dark-grey), 0 0 0 3px var(--light-grey);
     }
 
     &:checked + .dark-model-toggle__switch__slider:before {
