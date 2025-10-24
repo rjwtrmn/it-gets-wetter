@@ -52,16 +52,15 @@
 
   &__hour {
     align-items: start;
-    background: var(--weather-tile-hour-temp-color);
+    background: rgba(var(--weather-tile-hour-temp-color), .8);
     border-radius: 5px;
+    color: var(--dark-text);
     display: flex;
     flex-basis: 100px;
     flex-direction: column;
     gap: 2px;
     min-width: 100px;
     padding: 10px;
-    color: var(--dark-text);
-    opacity: .8;
 
     &_expanded {
       background-color: var(--mid-light-grey);

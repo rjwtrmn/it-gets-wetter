@@ -4,7 +4,7 @@
 
 .home__header {
   align-items: start;
-  background: light-dark(rgba(white, .2), rgba(var(--dark-grey-rgb), .5));
+  background: light-dark(rgba(white, .4), rgba(var(--dark-grey-rgb), .8));
   backdrop-filter: blur(5px);
   color: light-dark(var(--dark-text), var(--light-text));
   display: flex;
@@ -12,7 +12,7 @@
   inset-block-start: 0;
   inset-inline: 0;
   justify-content: end;
-  padding: 20px var(--padding-inline) 20px var(--padding-inline);
+  padding: 15px var(--padding-inline) 15px var(--padding-inline);
   position: fixed;
   z-index: 1;
 }
@@ -30,9 +30,9 @@
 }
 
 .home__header__logo {
-  background: rgba(var(--light-grey-rgb), 0.5);
+  background: light-dark(rgba(var(--dark-grey-rgb), 0.5), rgba(var(--light-grey-rgb), 0.5));
   border-radius: 5px;
-  color: var(--dark-text);
+  color: light-dark(var(--light-text), var(--dark-text));
   display: none;
   font-size: 15px;
   font-weight: 100;

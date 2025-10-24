@@ -183,6 +183,13 @@ export const weatherImageMapping: {
         credit: 'Valentin Müller via Unsplash',
         link: 'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1335'
     },
+    1198: {
+        src: 'src/assets/weather/1198-light-freezing-rain.jpg',
+        alt: 'Freezing rain on a red car.',
+        icon: 'rainy_snow',
+        credit: 'benjamin lehman via Unsplash',
+        link: 'https://images.unsplash.com/photo-1742563212503-9f44dada3f69?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=1170'
+    },
     1201: {
         src: 'src/assets/weather/1201-moderate-or-heavy-freezing-rain.jpg',
         alt: 'A Moving Cars on the Road During Winter Weather',

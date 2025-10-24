@@ -86,7 +86,7 @@ export function WeatherTileHourly({ forecastData, forecast, expandedHour, setExp
             {
                 futureHours.map((hour) => {
                         const { r, g, b } = calcRGBForTemp(hour.temp_c, forecast.day.mintemp_c, forecast.day.maxtemp_c);
-                        const colourVariable = { '--weather-tile-hour-temp-color': `rgb(${ r },${ g },${ b }` };
+                        const colourVariable = { '--weather-tile-hour-temp-color': `${ r },${ g },${ b }` };
                         return <button
                             style={ colourVariable as CSSProperties }
                             onClick={ () => setExpandedHour(hour) }
