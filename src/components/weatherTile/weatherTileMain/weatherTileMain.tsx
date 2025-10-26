@@ -12,7 +12,6 @@ export function WeatherTileMain({ condition, temp, locationData, details, foreca
     locationData: Location,
     temp: ReactNode,
 }) {
-    console.log(condition.code);
     return <section className="weather-tile__main">
         <div className="weather-tile__main__title">
             <h1 className="weather-tile__main__location">{ locationData.name }</h1>
