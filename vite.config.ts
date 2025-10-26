@@ -11,5 +11,5 @@ export default defineConfig({
       }),
       react(),
   ],
-  base: "/it-gets-wetter/",
+  base: "./",
 })
