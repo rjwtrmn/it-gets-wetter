@@ -52,9 +52,18 @@ html.light {
   color-scheme: light;
 }
 
+#root, main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 body {
   background-color: light-dark(var(--light-background), var(--dark-background));
   color: light-dark(var(--dark-text), var(--light-text));
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
   font-size: var(--font-size-regular);
   font-weight: 300;
   line-height: var(--line-height-body);

@@ -50,9 +50,8 @@ export function Home() {
     }, [ data ]);
 
     const input = <WeatherLocationInput setLocation={ setLocation }/>;
-
     return <div className="home">
-        <LoaderOverlay visible={ !weatherData && isPending }/>
+        <LoaderOverlay visible={ (!weatherData && isPending) || (!geolocation && isGeoPending) }/>
         { weatherData && <>
             <header className="home__header">
                 <div className="home__header__logo">
