@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export function useGeolocation() {
+export function useGeolocation(): [ string | null, boolean, boolean ] {
     const [ geolocation, setGeolocation ] = useState<string | null>(null);
     const [ isGeoPending, setIsGeoPending ] = useState<boolean>(true);
     const [ isError, setIsError ] = useState<boolean>(false);
